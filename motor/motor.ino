@@ -82,7 +82,7 @@ void loop() {
   }
   for(int k=0;k<50;k++)
   {
- stepMotor.rotA(n);
+ stepMotor.rotB(n);
   }
 }
 
