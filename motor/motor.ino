@@ -22,48 +22,47 @@ public: // спецификатор доступа public
 void rotA (int n)
 {  
   digitalWrite(pinA, HIGH);  
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinD, LOW);
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinB, HIGH);
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinA, LOW);
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinC, HIGH);  
-  delay(n);    
+  delayMicroseconds(n);    
   digitalWrite(pinB, LOW);
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinD, HIGH); 
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinC, LOW);
-  delay(n); 
+  delayMicroseconds(n); 
 }
 
 void rotB (int n)
 {
   digitalWrite(pinD, HIGH);  
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinA, LOW);
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinC, HIGH);
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinD, LOW);
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinB, HIGH);  
-  delay(n);    
+  delayMicroseconds(n);    
   digitalWrite(pinC, LOW);
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinA, HIGH); 
-  delay(n); 
+  delayMicroseconds(n); 
   digitalWrite(pinB, LOW);
-  delay(n); 
-}
-   
+  delayMicroseconds(n); 
+}   
 }; // конец объявления класса 
 
 //////////////////////////////////////////////////////////////////////////////
 ////////GLOBAL//////////////////////////////////////////////////////////////// 
-int n=10;
+int n=10*1000;
 
 Motor stepMotor(8,9,10,11); 
 
@@ -82,7 +81,7 @@ void loop() {
   }
   for(int k=0;k<50;k++)
   {
- stepMotor.rotA(n);
+ stepMotor.rotB(n);
   }
 }
 
