@@ -1,40 +1,104 @@
-
-int a = 8;
-int b= 9;
-int c= 10;
-int d= 11;
-int n=10;
-///////////////////////////
-int rotA (int n)
+class Motor // имя класса
+{
+private: // спецификатор доступа private
+  int pinA = 8;
+  int pinB = 9;
+  int pinC = 10;
+  int pinD = 11;
+  int stepDelay=10;
+public: // спецификатор доступа public
+    Motor (int _pinA, int _pinB, int _pinC,int _pinD ) // конструктор класса
+    {
+  pinA =_pinA;
+  pinB = _pinB;
+  pinC = _pinC;
+  pinD = _pinD;
+  pinMode(pinA, OUTPUT); 
+  pinMode(pinB, OUTPUT); 
+  pinMode(pinC, OUTPUT); 
+  pinMode(pinD, OUTPUT);
+    }
+    void setStep_delay() // setter
+    {
+     
+    }
+void rotA (int n)
 {  
-  digitalWrite(a, HIGH);  
+  digitalWrite(pinA, HIGH);  
   delay(n); 
-  digitalWrite(d, LOW);
+  digitalWrite(pinD, LOW);
   delay(n); 
-  digitalWrite(b, HIGH);
+  digitalWrite(pinB, HIGH);
   delay(n); 
-  digitalWrite(a, LOW);
+  digitalWrite(pinA, LOW);
   delay(n); 
-  digitalWrite(c, HIGH);  
+  digitalWrite(pinC, HIGH);  
   delay(n);    
-  digitalWrite(b, LOW);
+  digitalWrite(pinB, LOW);
   delay(n); 
-  digitalWrite(d, HIGH); 
+  digitalWrite(pinD, HIGH); 
   delay(n); 
-  digitalWrite(c, LOW);
+  digitalWrite(pinC, LOW);
   delay(n); 
 }
+
+void rotB (int n)
+{
+  digitalWrite(pinD, HIGH);  
+  delay(n); 
+  digitalWrite(pinA, LOW);
+  delay(n); 
+  digitalWrite(pinC, HIGH);
+  delay(n); 
+  digitalWrite(pinD, LOW);
+  delay(n); 
+  digitalWrite(pinB, HIGH);  
+  delay(n);    
+  digitalWrite(pinC, LOW);
+  delay(n); 
+  digitalWrite(pinA, HIGH); 
+  delay(n); 
+  digitalWrite(pinB, LOW);
+  delay(n); 
+}
+   
+}; // конец объявления класса 
+
+//////////////////////////////////////////////////////////////////////////////
+////////GLOBAL//////////////////////////////////////////////////////////////// 
+int n=10;
+
+Motor stepMotor(8,9,10,11); 
+
+
 ////////////////////////////////
 void setup() {                
   
-pinMode(a, OUTPUT); 
-pinMode(b, OUTPUT); 
-pinMode(c, OUTPUT); 
-pinMode(d, OUTPUT); 
+ 
 }
 
 
 void loop() { 
- rotA(n);
-  
+  for(int k=0;k<50;k++)
+  {
+ stepMotor.rotA(n);
+  }
+  for(int k=0;k<50;k++)
+  {
+ //rotB(n);
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
