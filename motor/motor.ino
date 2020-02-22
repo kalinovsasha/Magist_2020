@@ -5,7 +5,7 @@ private: // спецификатор доступа private
   int pinB = 9;
   int pinC = 10;
   int pinD = 11;
-  int stepDelay=10;
+  
 public: // спецификатор доступа public
     Motor (int _pinA, int _pinB, int _pinC,int _pinD ) // конструктор класса
     {
@@ -18,10 +18,7 @@ public: // спецификатор доступа public
   pinMode(pinC, OUTPUT); 
   pinMode(pinD, OUTPUT);
     }
-    void setStep_delay() // setter
-    {
-     
-    }
+   
 void rotA (int n)
 {  
   digitalWrite(pinA, HIGH);  
@@ -85,7 +82,7 @@ void loop() {
   }
   for(int k=0;k<50;k++)
   {
- //rotB(n);
+ stepMotor.rotA(n);
   }
 }
 
