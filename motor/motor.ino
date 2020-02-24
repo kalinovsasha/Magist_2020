@@ -1,4 +1,4 @@
-#include <iarduino_OLED_txt.h>
+#include <iarduino_OLED_txt.h> // SDA- Analog4; SCL Analog5
 class Motor // имя класса
 {
 private: // спецификатор доступа private
@@ -79,32 +79,38 @@ void rotB (int n)
 
 //////////////////////////////////////////////////////////////////////////////
 ////////GLOBAL//////////////////////////////////////////////////////////////// 
-  extern uint8_t SmallFontRus[];   //Russ font        
+  extern uint8_t MediumFontRus[];   //Russ font  
+  extern uint8_t SmallFontRus[];      
   iarduino_OLED_txt myOLED(0x3C);  // Object Display
   int _delay;
+  int delaytodisplay;
   Motor stepMotor(8,9,10,11); //Create object Motor
 
 
 ////////////////////////////////
   void setup()
     {       
-    myOLED.begin();                                                    
-    myOLED.setFont(SmallFontRus); 
+    myOLED.begin();
+    myOLED.setCoding(TXT_UTF8);                                        // Меняем кодировку на UTF-8 (по умолчанию).                                                     
     }
 
 
   void loop()
   { 
     _delay = analogRead(3);
+    delaytodisplay=_delay;
+    delaytodisplay=1024-delaytodisplay;
     _delay = map(_delay, 0, 1023, 1000, 15000);
-    stepMotor.rotB(_delay);
-
-    myOLED.clrScr();                                                   // Чистим экран.
-    myOLED.print("UTF8", 0, 0);                                        // Выводим текст начиная с 0 столбца 0 строки.
-    myOLED.setCoding(TXT_UTF8);                                        // Меняем кодировку на UTF-8 (по умолчанию).
-    myOLED.print("Ардуино iArduino", OLED_C, 4);                       // Выводим текст по центру 4 строки.
     
-  
+    //myOLED.clrScr();                                 //Чистим экран.
+    myOLED.print("            ", 0, 2);                //Clear  row
+    myOLED.print("            ", 0, 1);                //Clear  row
+    myOLED.setFont(MediumFontRus);
+    myOLED.print(delaytodisplay, 0, 2);               // Выводим текст начиная с 0 столбца 0 строки.
+    myOLED.setFont(SmallFontRus);
+    myOLED.print("Ардуино iArduino", OLED_C, 6);      // Выводим текст по центру 4 строки.
+    
+    stepMotor.rotB(_delay);
 }
 
 
