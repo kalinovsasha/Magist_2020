@@ -1,3 +1,4 @@
+#include <iarduino_OLED_txt.h>
 class Motor // имя класса
 {
 private: // спецификатор доступа private
@@ -78,21 +79,31 @@ void rotB (int n)
 
 //////////////////////////////////////////////////////////////////////////////
 ////////GLOBAL//////////////////////////////////////////////////////////////// 
-int _delay;
-Motor stepMotor(8,9,10,11); //Create object Motor
+  extern uint8_t SmallFontRus[];   //Russ font        
+  iarduino_OLED_txt myOLED(0x3C);  // Object Display
+  int _delay;
+  Motor stepMotor(8,9,10,11); //Create object Motor
 
 
 ////////////////////////////////
-void setup() {                
-  
-}
+  void setup()
+    {       
+    myOLED.begin();                                                    
+    myOLED.setFont(SmallFontRus); 
+    }
 
 
-void loop() { 
-  _delay = analogRead(3);
-  _delay = map(_delay, 0, 1023, 1000, 15000);
-  stepMotor.rotB(_delay);
-  
+  void loop()
+  { 
+    _delay = analogRead(3);
+    _delay = map(_delay, 0, 1023, 1000, 15000);
+    stepMotor.rotB(_delay);
+
+    myOLED.clrScr();                                                   // Чистим экран.
+    myOLED.print("UTF8", 0, 0);                                        // Выводим текст начиная с 0 столбца 0 строки.
+    myOLED.setCoding(TXT_UTF8);                                        // Меняем кодировку на UTF-8 (по умолчанию).
+    myOLED.print("Ардуино iArduino", OLED_C, 4);                       // Выводим текст по центру 4 строки.
+    
   
 }
 
