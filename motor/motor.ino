@@ -85,7 +85,7 @@ void rotB (int n)
   int _delay;
   int delaytodisplay;
   Motor stepMotor(8,9,10,11); //Create object Motor
-
+  int delayBuf=0;
 
 ////////////////////////////////
   void setup()
@@ -94,23 +94,27 @@ void rotB (int n)
     myOLED.setCoding(TXT_UTF8);                                        // Меняем кодировку на UTF-8 (по умолчанию).                                                     
     }
 
-
   void loop()
   { 
-    _delay = analogRead(3);
+    _delay = analogRead(3);                             //potenciometr for set speed
     delaytodisplay=_delay;
-    delaytodisplay=1024-delaytodisplay;
-    _delay = map(_delay, 0, 1023, 1000, 15000);
+    delaytodisplay=map(1024-delaytodisplay,0,1024,1,100);
     
-    //myOLED.clrScr();                                 //Чистим экран.
+    _delay = map(_delay, 0, 1023, 1000, 15000);
+   
+    if(delayBuf > _delay+25 or delayBuf < _delay-25 )
+    {
+    delayBuf= _delay; 
     myOLED.print("            ", 0, 2);                //Clear  row
     myOLED.print("            ", 0, 1);                //Clear  row
     myOLED.setFont(MediumFontRus);
     myOLED.print(delaytodisplay, 0, 2);               // Выводим текст начиная с 0 столбца 0 строки.
-    myOLED.setFont(SmallFontRus);
-    myOLED.print("Ардуино iArduino", OLED_C, 6);      // Выводим текст по центру 4 строки.
+   // myOLED.setFont(SmallFontRus);
+   // myOLED.print("Ардуино iArduino", OLED_C, 6);      // Выводим текст по центру 4 строки.
+    }  
     
     stepMotor.rotB(_delay);
+    
 }
 
 
