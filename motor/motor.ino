@@ -82,10 +82,11 @@ void rotB (int n)
   extern uint8_t MediumFontRus[];   //Russ font  
   extern uint8_t SmallFontRus[];      
   iarduino_OLED_txt myOLED(0x3C);  // Object Display
-  int _delay;
-  int delaytodisplay;
+  int delayPotenc=1000; // Значение потенциометра
+  int delayStep;        // Значение задержки для двигателя
+  int delaytodisplay; //Значение выводимое на дисплей 
   Motor stepMotor(8,9,10,11); //Create object Motor
-  int delayBuf=0;
+  int delayBuf=0; // Временное значение
 
 ////////////////////////////////
   void setup()
@@ -96,24 +97,23 @@ void rotB (int n)
 
   void loop()
   { 
-    _delay = analogRead(3);                             //potenciometr for set speed
-    delaytodisplay=_delay;
-    delaytodisplay=map(1024-delaytodisplay,0,1024,1,100);
-    
-    _delay = map(_delay, 0, 1023, 1000, 15000);
+    delayPotenc = analogRead(3);      //potenciometr for set speed
+    delaytodisplay=map(1024-delayPotenc,0,1024,1,100);
+    delayStep = map(delayPotenc, 0, 1023, 1000, 15000);
+
    
-    if(delayBuf > _delay+25 or delayBuf < _delay-25 )
-    {
-    delayBuf= _delay; 
-    myOLED.print("            ", 0, 2);                //Clear  row
-    myOLED.print("            ", 0, 1);                //Clear  row
-    myOLED.setFont(MediumFontRus);
-    myOLED.print(delaytodisplay, 0, 2);               // Выводим текст начиная с 0 столбца 0 строки.
-   // myOLED.setFont(SmallFontRus);
-   // myOLED.print("Ардуино iArduino", OLED_C, 6);      // Выводим текст по центру 4 строки.
-    }  
+    if(delayBuf > delayStep+25 or delayBuf < delayStep-25 )
+      {
+      delayBuf= delayStep; 
+      myOLED.print("            ", 0, 2);                //Clear  row
+      myOLED.print("            ", 0, 1);                //Clear  row
+      myOLED.setFont(MediumFontRus);
+      myOLED.print(delaytodisplay, 0, 2);               // Выводим текст начиная с 0 столбца 0 строки.
+      // myOLED.setFont(SmallFontRus);
+      // myOLED.print("Ардуино iArduino", OLED_C, 6);      // Выводим текст по центру 4 строки.
+      }  
     
-    stepMotor.rotB(_delay);
+    stepMotor.rotB(delayStep);
     
 }
 
