@@ -87,17 +87,21 @@ void rotB (int n)
   int delaytodisplay; //Значение выводимое на дисплей 
   Motor stepMotor(8,9,10,11); //Create object Motor
   int delayBuf=0; // Временное значение
-
+  int pinIn =2;  // Вход кнопки Set
 ////////////////////////////////
   void setup()
     {       
     myOLED.begin();
     myOLED.setCoding(TXT_UTF8);                                        // Меняем кодировку на UTF-8 (по умолчанию).                                                     
+    pinMode(pinIn, INPUT);
     }
-
+  
   void loop()
   { 
+
+    if (digitalRead(2)==HIGH){ 
     delayPotenc = analogRead(3);      //potenciometr for set speed
+    }
     delaytodisplay=map(1024-delayPotenc,0,1024,1,100);
     delayStep = map(delayPotenc, 0, 1023, 1000, 15000);
 
